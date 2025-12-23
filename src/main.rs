@@ -6,7 +6,7 @@ struct Project {
     version: String,
 
     variables: HashMap<String, String>,
-    executables: HasMap<String, Executable>
+    executables: HashMap<String, Executable>
 }
 
 #[derive(Debug, Deserialize)]

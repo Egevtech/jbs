@@ -1,0 +1,8 @@
+   0.017948225s  INFO prepare_target{force=false package_id=jbs v0.1.0 (/mnt/drive/projects/rust/jbs) target="jbs"}: cargo::core::compiler::fingerprint: fingerprint dirty for jbs v0.1.0 (/mnt/drive/projects/rust/jbs)/Check { test: false }/TargetInner { name: "jbs", doc: true, ..: with_path("/mnt/drive/projects/rust/jbs/src/main.rs", Edition2024) }
+   0.017965878s  INFO prepare_target{force=false package_id=jbs v0.1.0 (/mnt/drive/projects/rust/jbs) target="jbs"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(FailedToReadMetadata("/mnt/drive/projects/rust/jbs/target/debug/deps/libjbs-7e9f6da29e797559.rmeta")))
+   0.019706202s  INFO prepare_target{force=false package_id=jbs v0.1.0 (/mnt/drive/projects/rust/jbs) target="jbs"}: cargo::core::compiler::fingerprint: fingerprint dirty for jbs v0.1.0 (/mnt/drive/projects/rust/jbs)/Check { test: true }/TargetInner { name: "jbs", doc: true, ..: with_path("/mnt/drive/projects/rust/jbs/src/main.rs", Edition2024) }
+   0.019719349s  INFO prepare_target{force=false package_id=jbs v0.1.0 (/mnt/drive/projects/rust/jbs) target="jbs"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(FailedToReadMetadata("/mnt/drive/projects/rust/jbs/target/debug/deps/libjbs-8f2b3cbc366764ef.rmeta")))
+    Checking jbs v0.1.0 (/mnt/drive/projects/rust/jbs)
+error: could not compile `jbs` (bin "jbs") due to 2 previous errors; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `jbs` (bin "jbs" test) due to 2 previous errors; 1 warning emitted
