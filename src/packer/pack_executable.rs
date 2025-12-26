@@ -1,8 +1,8 @@
-use crate::preparer::structs::{Executable};
+use crate::preparer::{Executable};
 use serde::Serialize;
 use crate::packer::{
     errors::PackerError,
-    structs::*
+    *
 };
 
 fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerError> {

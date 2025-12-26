@@ -1,6 +1,6 @@
 use std::fmt::{Formatter, Display, Debug};
 use std::result::Result as StdResult;
-use super::{structs::*};
+use super::{*};
 
 pub enum ProjectParserError {
     LowLevel(String),
@@ -28,7 +28,7 @@ impl Display for ProjectParserError {
  * Reads file on <path> and loading config
  */
 pub fn parse(path: &str) -> StdResult<Project, ProjectParserError> {
-    let mut project: Project;
+    let project: Project;
 
     let contents = match std::fs::read_to_string(path) {
         Ok(content) => content,
