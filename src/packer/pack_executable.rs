@@ -1,6 +1,9 @@
 use crate::preparer::structs::{Executable};
 use serde::Serialize;
-use crate::packer::errors::PackerError;
+use crate::packer::{
+    errors::PackerError,
+    structs::*
+};
 
 fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerError> {
 
@@ -10,7 +13,7 @@ fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerEr
             ".to_owned()));
     }
 
-    let result = match toml::to_string(&executable) {
+    let result = match toml::to_string(&executable.as_packed()) {
         Ok(string) => string,
         Err(error) => return Err(PackerError::TomlError(error))
     };
