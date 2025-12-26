@@ -1,3 +1,3 @@
-mod pack_executable;
-mod errors;
-mod pack_struct;
+pub mod pack_executable;
+pub mod errors;
+pub mod structs;
