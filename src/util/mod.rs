@@ -1,19 +1,34 @@
+mod parse_commands;
+
 use std::collections::HashMap;
 
-enum CommandType {
+pub enum CommandType {
     Build,
     Run,
 
     Clean,
 
     Configure,
+
+    None,
 }
 
-type Derives = HashMap<String, String>;
+pub type Derives = HashMap<String, String>;
 
-struct Command {
+pub struct Command {
     command: CommandType,
     args: Vec<String>,
 
     derives: Derives,
+}
+
+impl Command {
+    fn new() -> Command {
+       Command {
+           command: CommandType::None,
+
+           args: Vec::new(),
+           derives: HashMap::new(),
+       }
+    }
 }
