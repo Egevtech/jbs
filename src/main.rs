@@ -3,7 +3,7 @@ mod preparer;
 mod packer;
 mod util;
 
-use preparer::{parser::*, structs::*};
+use preparer::{parser::*, *};
 
 fn main() {
     let mut project: Project;
