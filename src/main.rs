@@ -1,30 +1,40 @@
-use toml::*;
+mod operator;
+mod preparer;
+mod packer;
+use preparer::{parser::*, structs::*};
 
-use serde::Deserialize;
-use std::collections::HashMap;
-
-#[derive(Debug, Deserialize)]
-struct Project {
-    name: String,
-    version: String,
-
-    variables: HashMap<String, String>,
-    executables: HashMap<String, Executable>
-}
-
-#[derive(Debug, Deserialize)]
-struct Executable {
+struct ExecutableLock {
     name: String,
 
     compiler: String,
     linker: String,
 
-    compile_options: Vec<String>,
-    link_options: Vec<String>,
-    libraries: Vec<String>,
-
-    sources: Vec<String>
+    compile_flags: Vec<String>,
+    link_flags: Vec<String>,
+}
+    
+impl ExecutableLock {
+    fn new() -> ExecutableLock {
+            ExecutableLock {
+            name: "".to_string(),
+            compiler: "".to_string(),
+            linker: "".to_string(),
+    
+            compile_flags: vec![],
+            link_flags: vec![]
+        }
+    }
 }
 
+
 fn main() {
+    let mut project: Project;
+
+    project = match parse("project.toml") {
+        Ok(project) => project,
+        Err(err) => {
+            println!("Parse error: {}", err);
+            return
+        }
+    }
 }
