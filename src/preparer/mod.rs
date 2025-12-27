@@ -23,13 +23,13 @@ impl Debug for Value {
 
 #[derive(Debug, Deserialize)]
 pub struct Project {
-    name: String,
-    version: String,
+    pub name: String,
+    pub version: String,
 
-    default_target: Option<String>,
+    pub default_target: Option<String>,
 
-    variables: Option<HashMap<String, Value>>,
-    executables: HashMap<String, Executable>,
+    pub variables: Option<HashMap<String, Value>>,
+    pub executables: HashMap<String, Executable>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
