@@ -8,6 +8,8 @@ pub fn parse_commands(args: Vec<String>, project: &mut Project) -> Result<Comman
     let mut result: Command = Command::new();
     let mut to_skip: i8 = 0;
 
+    result.command = CommandType::default();
+    
     let mut i = 1;
 
     while i < args.len() {

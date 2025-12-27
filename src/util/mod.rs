@@ -15,6 +15,12 @@ pub enum CommandType {
     None,
 }
 
+impl Default for CommandType {
+    fn default() -> CommandType {
+        CommandType::None
+    }
+}
+
 pub type Derives = HashMap<String, String>;
 
 pub struct Command {
