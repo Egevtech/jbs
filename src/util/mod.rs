@@ -1,4 +1,5 @@
 mod parse_commands;
+pub mod error;
 
 use std::collections::HashMap;
 
