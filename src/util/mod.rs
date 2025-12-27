@@ -3,6 +3,7 @@ pub mod error;
 
 use std::collections::HashMap;
 
+#[derive(PartialEq)]
 pub enum CommandType {
     Build,
     Run,
@@ -17,10 +18,10 @@ pub enum CommandType {
 pub type Derives = HashMap<String, String>;
 
 pub struct Command {
-    command: CommandType,
-    args: Vec<String>,
+    pub command: CommandType,
+    pub args: Vec<String>,
 
-    derives: Derives,
+    pub derives: Derives,
 }
 
 impl Command {

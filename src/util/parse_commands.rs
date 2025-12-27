@@ -4,17 +4,13 @@ use crate::util::{Command, CommandType, error::*};
 use crate::project::Project;
 use crate::operator::{*, configurator::configure_project};
 
-impl PartialEq for CommandType {
-    fn eq(&self, other: &Self) -> bool {
-        self == other
-    }
-}
-
-pub fn parse_commands(args: Vec<String>, mut project: Project) -> Result<Command, ArgParseError> {
+pub fn parse_commands(args: Vec<String>, project: &mut Project) -> Result<Command, ArgParseError> {
     let mut result: Command = Command::new();
     let mut to_skip: i8 = 0;
 
-    for i in 1..args.len() {
+    let mut i = 1;
+
+    while i < args.len() {
         let arg = args[i].clone();
 
         if to_skip > 0 {
@@ -38,7 +34,7 @@ pub fn parse_commands(args: Vec<String>, mut project: Project) -> Result<Command
 
                 result.command = CommandType::Build;
 
-                if project.default_target == None && args.len() <= i + 1 {
+                if project.default_target == None && args.len() < i + 1 {
                     return Err(ArgParseError::ProjectPanic("No target specified".to_string()));
                 }
 
@@ -52,7 +48,7 @@ pub fn parse_commands(args: Vec<String>, mut project: Project) -> Result<Command
                     return Err(e);
                 }
 
-                configure_project(&project);
+                result.command = CommandType::Configure;
             }
             "clean" => {
                 if let Err(e) = check_ident() {
@@ -61,8 +57,11 @@ pub fn parse_commands(args: Vec<String>, mut project: Project) -> Result<Command
 
                 result.command = CommandType::Clean;
             }
-            _ => {}
+            _ => {
+                eprintln!("Unknown command \"{}\"", arg);
+            }
         }
+        i += 1;
     }
 
     Ok(result)
