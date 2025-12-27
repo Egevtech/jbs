@@ -1,2 +1,2 @@
 pub mod builder;
-mod configurator;
+pub mod configurator;
