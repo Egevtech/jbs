@@ -11,6 +11,13 @@ fn main() {
     let mut project: Project;
 
     match std::fs::exists("project.toml") {
+        Ok(b) => if !b { eprintln!("project.toml does not exist"); return }
+        Err(e) => {
+            eprintln!("project.toml does not exist: {}", e);
+            return
+        }
+    }
+
     project = match parse("project.toml") {
         Ok(project) => project,
         Err(err) => {
