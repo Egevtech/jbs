@@ -10,6 +10,7 @@ use crate::operator::configurator::configure_project;
 fn main() {
     let mut project: Project;
 
+    match std::fs::exists("project.toml") {
     project = match parse("project.toml") {
         Ok(project) => project,
         Err(err) => {
