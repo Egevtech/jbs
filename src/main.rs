@@ -4,6 +4,7 @@ mod packer;
 mod util;
 
 use project::{parser::*, *};
+use util::{parse_commands::*, error::*, *};
 
 fn main() {
     let mut project: Project;
@@ -15,4 +16,7 @@ fn main() {
             return
         }
     }
+
+    let command: Command;
+    command = parse_command(project);
 }
