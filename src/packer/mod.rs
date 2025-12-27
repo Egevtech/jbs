@@ -2,7 +2,7 @@ pub mod pack_executable;
 pub mod errors;
 
 use serde::{Serialize, Deserialize};
-use crate::preparer::{Executable};
+use crate::project::{Executable};
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct ExecutablePack {

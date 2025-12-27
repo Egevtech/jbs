@@ -1,9 +1,9 @@
 mod operator;
-mod preparer;
+mod project;
 mod packer;
 mod util;
 
-use preparer::{parser::*, *};
+use project::{parser::*, *};
 
 fn main() {
     let mut project: Project;

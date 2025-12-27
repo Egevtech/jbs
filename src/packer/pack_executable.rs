@@ -1,11 +1,11 @@
-use crate::preparer::{Executable};
+use crate::project::{Executable};
 use serde::Serialize;
 use crate::packer::{
     errors::PackerError,
     *
 };
 
-fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerError> {
+pub fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerError> {
 
     if executable.executable_canonical_name == None {
         return Err(PackerError::InternalError("\
