@@ -1,28 +1,32 @@
-use crate::project::{Executable};
-use serde::Serialize;
-use crate::packer::{
-    errors::PackerError,
-    *
-};
+use crate::packer::{errors::PackerError, *};
+use crate::project::Executable;
 
-pub fn pack_executable(executable: Executable) -> Result<(), super::errors::PackerError> {
-
-    if executable.executable_canonical_name == None {
-        return Err(PackerError::InternalError("\
+pub fn pack_executable(
+    mut executable: Executable,
+    derives: Derives,
+) -> Result<(), super::errors::PackerError> {
+    if executable.executable_canonical_name.is_none() {
+        return Err(PackerError::Internal(
+            "\
             system field is empty, but it cant be empty\
-            ".to_owned()));
+            "
+            .to_owned(),
+        ));
     }
 
-    let result = match toml::to_string(&executable.as_packed()) {
+    let result = match toml::to_string(&executable.as_packed(derives)) {
         Ok(string) => string,
-        Err(error) => return Err(PackerError::TomlError(error))
+        Err(error) => return Err(PackerError::Toml(error)),
     };
 
-    if let Err(error) =
-        std::fs::write(format!("build/fixed/{}.toml",
-                                    executable.executable_canonical_name.unwrap()),
-                       result) {
-        return Err(PackerError::IOError(error))
+    if let Err(error) = std::fs::write(
+        format!(
+            "build/fixed/{}.toml",
+            executable.executable_canonical_name.unwrap()
+        ),
+        result,
+    ) {
+        return Err(PackerError::IO(error));
     }
 
     Ok(())
