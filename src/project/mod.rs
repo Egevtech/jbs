@@ -1,31 +1,13 @@
-pub mod parser;
 pub mod creator;
+pub mod parser;
 
-use std::collections::HashMap;
-use std::fmt::{Formatter, Debug};
+use crate::derive::Value;
 use serde::{Deserialize, Serialize};
-
-#[derive(Deserialize)]
-#[serde(untagged)]
-pub enum Value {
-    String(String),
-    VString(Vec<String>)
-}
-
-impl Debug for Value {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
-        match self {
-            Value::String(s) => write!(f, "Value::String({})", s),
-            Value::VString(v) => write!(f, "Value::VString({:?})", v),
-        }
-    }
-}
+use std::collections::HashMap;
+use std::fmt::Debug;
 
 #[derive(Debug, Deserialize)]
 pub struct Project {
-    pub name: String,
-    pub version: String,
-
     pub default_target: Option<String>,
 
     pub variables: Option<HashMap<String, Value>>,
@@ -46,6 +28,5 @@ pub struct Executable {
     pub sources: Vec<String>,
 
     /* User does not need to fill fields below */
-    pub executable_canonical_name: Option<String>
-
+    pub executable_canonical_name: Option<String>,
 }

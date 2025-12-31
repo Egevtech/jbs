@@ -1,6 +1,6 @@
-use std::fmt::{Formatter, Display, Debug};
+use super::*;
+use std::fmt::{Debug, Display, Formatter};
 use std::result::Result as StdResult;
-use super::{*};
 
 pub enum ProjectParserError {
     LowLevel(String),
@@ -10,10 +10,8 @@ pub enum ProjectParserError {
 impl Debug for ProjectParserError {
     fn fmt(&self, f: &mut Formatter<'_>) -> StdResult<(), std::fmt::Error> {
         match self {
-            ProjectParserError::LowLevel(message) =>
-                write!(f, "{}", message),
-            ProjectParserError::Parse(message) =>
-                write!(f, "{}", message),
+            ProjectParserError::LowLevel(message) => write!(f, "{}", message),
+            ProjectParserError::Parse(message) => write!(f, "{}", message),
         }
     }
 }
@@ -25,11 +23,15 @@ impl Display for ProjectParserError {
 }
 
 /**
- * Reads file on <path> and loading config
+Reads file on `path`  and loading config
+```rust
+let project = parse("project.toml");
+match project {
+    ...
+}
+```
  */
 pub fn parse(path: &str) -> StdResult<Project, ProjectParserError> {
-    let project: Project;
-
     let contents = match std::fs::read_to_string(path) {
         Ok(content) => content,
         Err(err) => {
@@ -37,16 +39,12 @@ pub fn parse(path: &str) -> StdResult<Project, ProjectParserError> {
         }
     };
 
-    project = match toml::from_str(&contents) {
+    let project: Project = match toml::from_str(&contents) {
         Ok(project) => project,
-        Err(err) => {
-            return Err(ProjectParserError::Parse(err.to_string()))
-        }
+        Err(err) => return Err(ProjectParserError::Parse(err.to_string())),
     };
 
     Ok(project)
 }
 
-impl Executable {
-
-}
+impl Executable {}
