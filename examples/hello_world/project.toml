@@ -1,0 +1,14 @@
+# To build this project run <jbs configure> and <jbs build> after install jbs to your system
+name = "'Hello, world' project"
+
+[variables]
+c_compiler = "clang"
+sources = ["main.c", "say_hi.c"]
+
+[executables.hworld]
+name = "Hello world application"
+
+compiler = "^c_compiler"
+linker = "^c_compiler"
+
+sources = ["^sources"]

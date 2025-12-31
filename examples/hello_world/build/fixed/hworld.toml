@@ -1,0 +1,7 @@
+name = "hworld"
+title = "Hello world application"
+compiler = "clang"
+linker = "clang"
+sources = ["main.c", "say_hi.c"]
+compile_options = []
+link_options = ["build/cache/main.c.o", "build/cache/say_hi.c.o", "-o", "build/hworld"]
