@@ -1,42 +1,30 @@
-pub mod parse_commands;
 pub mod error;
+pub mod parse_commands;
 
-use std::collections::HashMap;
+use std::default::Default;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Default)]
 pub enum CommandType {
+    #[default]
+    None,
+
     Build,
     Run,
 
     Clean,
 
     Configure,
-
-    None,
 }
-
-impl Default for CommandType {
-    fn default() -> CommandType {
-        CommandType::None
-    }
-}
-
-pub type Derives = HashMap<String, String>;
 
 pub struct Command {
     pub command: CommandType,
-    pub args: Vec<String>,
-
-    pub derives: Derives,
 }
 
 impl Command {
     fn new() -> Command {
-       Command {
-           command: CommandType::None,
-
-           args: Vec::new(),
-           derives: HashMap::new(),
-       }
+        Command {
+            command: CommandType::None,
+        }
     }
 }
+
