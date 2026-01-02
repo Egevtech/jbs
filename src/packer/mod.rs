@@ -51,6 +51,9 @@ impl ToPackedExec for Executable {
         self.compiler.operate(&derives);
         self.linker.operate(&derives);
 
+        self.compile_options.unwrap_or_default().operate(&derives);
+        self.link_options.unwrap_or_default().operate(&derives);
+
         vec![
             "-o",
             ("build/".to_owned() + &self.executable_canonical_name.clone().unwrap()).as_str(),
