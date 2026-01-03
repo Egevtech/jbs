@@ -97,6 +97,8 @@ impl Operate for Vec<String> {
 mod test {
     use super::*;
 
+    // With love with russian shit
+
     #[test]
     fn test_operate_string() {
         let mut str: String = String::from("^ochko");
