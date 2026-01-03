@@ -4,12 +4,11 @@ use std::{
     process::{Command, Output},
 };
 
-/*
-* Code 10 - compiler panic,
-* Code 11 - linker panic,
-*/
-
-pub fn build_executable(executable: ExecutablePack) {
+pub fn build_executable(executable: ExecutablePack, project_name: String) {
+    println!(
+        "Building executable {} from project {project_name}",
+        executable.name.clone()
+    );
     let start_time = std::time::Instant::now();
     for (index, source) in executable.sources.iter().enumerate() {
         println!(

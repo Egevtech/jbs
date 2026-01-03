@@ -77,5 +77,5 @@ fn build_project(project: &Project) {
     println!("Parsing executable lock file: {file}");
     let target = unpack_executable(file.to_string()).expect("Unpack failed");
 
-    build_executable(target);
+    build_executable(target, project.name.clone());
 }

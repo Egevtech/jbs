@@ -7,6 +7,8 @@ use std::result::Result as StdResult;
 
 #[derive(Debug, Deserialize)]
 pub struct Project {
+    pub name: String,
+
     pub default_target: Option<String>,
 
     pub variables: Option<HashMap<String, Value>>,
