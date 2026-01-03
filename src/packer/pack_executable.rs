@@ -4,7 +4,7 @@ use crate::project::Executable;
 pub fn pack_executable(mut executable: Executable, derives: Derives) -> Result<(), PackerError> {
     if executable.executable_canonical_name.is_none() {
         return Err(PackerError::Internal(
-            "system field is empty, but it cant be empty".to_owned(),
+            "system field cannot be empty, but it is empty".to_owned(),
         ));
     }
 
