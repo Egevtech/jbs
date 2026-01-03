@@ -1,5 +1,5 @@
 use crate::project::Project;
-use crate::util::{Command, CommandType, error::*};
+use crate::util::{Command, CommandType, *};
 
 pub fn parse_commands(args: Vec<String>, project: &mut Project) -> Result<Command, ArgParseError> {
     let mut result: Command = Command::new();
