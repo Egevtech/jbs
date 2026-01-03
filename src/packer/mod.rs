@@ -1,4 +1,3 @@
-pub mod errors;
 pub mod pack_executable;
 pub mod unpack_executable;
 
@@ -6,6 +5,8 @@ use crate::{
     derive::{Derives, *},
     project::Executable,
 };
+
+use std::fmt;
 
 use serde::{Deserialize, Serialize};
 
@@ -78,6 +79,22 @@ impl ToPackedExec for Executable {
 
             compile_options: compile_opts,
             link_options: link_opts,
+        }
+    }
+}
+
+pub enum PackerError {
+    Toml(toml::ser::Error),
+    IO(std::io::Error),
+    Internal(String),
+}
+
+impl fmt::Display for PackerError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            PackerError::Toml(e) => write!(f, "Toml failed: {}", e),
+            PackerError::IO(e) => write!(f, "IO failed: {}", e),
+            PackerError::Internal(e) => write!(f, "Internal error: {}", e),
         }
     }
 }

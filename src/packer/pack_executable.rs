@@ -1,10 +1,7 @@
-use crate::packer::{errors::PackerError, *};
+use crate::packer::*;
 use crate::project::Executable;
 
-pub fn pack_executable(
-    mut executable: Executable,
-    derives: Derives,
-) -> Result<(), super::errors::PackerError> {
+pub fn pack_executable(mut executable: Executable, derives: Derives) -> Result<(), PackerError> {
     if executable.executable_canonical_name.is_none() {
         return Err(PackerError::Internal(
             "\
