@@ -75,7 +75,7 @@ fn build_project(project: &Project) {
         "build/fixed/{}.toml",
         project.default_target.clone().unwrap()
     );
-    println!("Parsing executable {file}");
+    println!("Parsing executable lock file: {file}");
     let target = unpack_executable(file.to_string()).expect("Unpack failed");
 
     build_executable(target);
