@@ -1,6 +1,6 @@
 use crate::packer::pack_executable::pack_executable;
 use crate::project::Project;
-use crate::project::creator::prepare_dirs;
+use crate::project::prepare_dirs;
 use std::process::exit;
 
 pub fn configure_project(project: &Project) {

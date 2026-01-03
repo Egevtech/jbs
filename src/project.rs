@@ -1,6 +1,54 @@
-use super::*;
+use crate::derive::Value;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::fmt::{Debug, Display, Formatter};
+use std::fs;
 use std::result::Result as StdResult;
+
+#[derive(Debug, Deserialize)]
+pub struct Project {
+    pub default_target: Option<String>,
+
+    pub variables: Option<HashMap<String, Value>>,
+    pub executables: HashMap<String, Executable>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct Executable {
+    pub name: String,
+
+    pub compiler: String,
+    pub linker: String,
+
+    pub compile_options: Option<Vec<String>>,
+    pub link_options: Option<Vec<String>>,
+    pub libraries: Option<Vec<String>>,
+
+    pub sources: Vec<String>,
+
+    /* User does not need to fill fields below */
+    pub executable_canonical_name: Option<String>,
+}
+
+pub fn prepare_dirs() -> Option<std::io::Error> {
+    let dirs = vec!["./build", "./build/cache", "./build/fixed"];
+
+    for dir in dirs {
+        if let Err(e) = fs::create_dir_all(dir) {
+            return Some(e);
+        }
+    }
+
+    None
+}
+
+pub fn clean() -> Option<std::io::Error> {
+    if let Err(e) = fs::remove_dir_all("build/") {
+        return Some(e);
+    }
+
+    None
+}
 
 pub enum ProjectParserError {
     LowLevel(String),
@@ -22,15 +70,6 @@ impl Display for ProjectParserError {
     }
 }
 
-/**
-Reads file on `path`  and loading config
-```rust
-let project = parse("project.toml");
-match project {
-    ...
-}
-```
- */
 pub fn parse(path: &str) -> StdResult<Project, ProjectParserError> {
     let contents = match std::fs::read_to_string(path) {
         Ok(content) => content,

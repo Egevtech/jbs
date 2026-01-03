@@ -7,8 +7,7 @@ mod util;
 use crate::operator::builder::*;
 use crate::operator::configurator::configure_project;
 use crate::packer::unpack_executable::*;
-use crate::project::creator::clean;
-use project::{parser::*, *};
+use project::*;
 use util::{parse_commands::*, *};
 
 fn main() {
