@@ -1,7 +1,7 @@
+use serde::Deserialize;
 use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Formatter;
-use serde::Deserialize;
 
 #[derive(Deserialize, Clone)]
 #[serde(untagged)]
@@ -14,7 +14,7 @@ impl fmt::Display for Value {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             Value::String(s) => write!(f, "{:?}", s),
-            VString(v) => write!(f, "{:?}", v),
+            Value::VString(v) => write!(f, "{:?}", v),
         }
     }
 }
@@ -22,7 +22,7 @@ impl fmt::Debug for Value {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             Value::String(s) => write!(f, "{s}"),
-            VString(v) => write!(f, "{:?}", v),
+            Value::VString(v) => write!(f, "{:?}", v),
         }
     }
 }
@@ -99,24 +99,24 @@ mod test {
     fn test_operate_string() {
         let mut str: String = String::from("^ochko");
         let mut derives: Derives = Derives::new();
-    
+
         derives.insert("ochko".to_string(), Value::String("ZZZ".to_string()));
-    
+
         str.operate(&derives);
-    
+
         assert_ne!(str, "^ochko");
         assert_eq!(str, "ZZZ");
     }
-    
+
     #[test]
     fn test_operate_vector() {
         let mut vec: Vec<String> = vec![String::from("^ochko")];
         let mut derives: Derives = Derives::new();
-    
+
         derives.insert("ochko".to_string(), Value::String("zz".to_string()));
-    
+
         vec.operate(&derives);
-    
+
         assert_ne!(vec, vec!["^ochko"]);
         assert_eq!(vec, vec!["zz"]);
     }

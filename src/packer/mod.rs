@@ -6,6 +6,7 @@ use crate::{
     derive::{Derives, *},
     project::Executable,
 };
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
@@ -51,8 +52,13 @@ impl ToPackedExec for Executable {
         self.compiler.operate(&derives);
         self.linker.operate(&derives);
 
-        self.compile_options.unwrap_or_default().operate(&derives);
-        self.link_options.unwrap_or_default().operate(&derives);
+        if !self.compile_options.is_none() {
+            self.compile_options.as_mut().unwrap().operate(&derives);
+        }
+
+        if !self.link_options.is_none() {
+            self.link_options.as_mut().unwrap().operate(&derives);
+        }
 
         vec![
             "-o",
