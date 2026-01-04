@@ -1,0 +1,12 @@
+# Build project - jbs configure && jbs build simple
+# Run project - jbs configure && jbs run simple
+
+name = "Simple project"
+
+[executables.simple]
+name = "Simple application"
+
+compiler = "clang"
+linker = "clang"
+
+sources = [ "main.c" ]
